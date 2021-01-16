@@ -61,9 +61,18 @@
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Common\Tags.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\ItemWidget.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputController.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseMoveEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InteractionsController.cs" />
      <None Include="Assets\ElysiumTest\Scripts\Presentation\Presentation.asmdef" />
  <Reference Include="Unity.InputSystem">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
+ </Reference>
+ <Reference Include="UniTask">
+ <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UniTask.dll</HintPath>
+ </Reference>
+ <Reference Include="UniRx">
+ <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UniRx.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
