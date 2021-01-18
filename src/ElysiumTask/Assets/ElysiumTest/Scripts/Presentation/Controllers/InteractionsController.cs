@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using ElysiumTest.Scripts.Presentation.Components;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers
 {

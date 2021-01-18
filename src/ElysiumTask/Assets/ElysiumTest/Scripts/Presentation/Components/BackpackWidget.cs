@@ -8,6 +8,7 @@ namespace ElysiumTest.Scripts.Presentation.Components
 {
     public class BackpackWidget : MonoBehaviour, IBackpack
     {
+        [SerializeField] private Backpack model;
         [SerializeField] private AttachPoint[] attachPoints;
         
         public bool TryGetAttachPosition(Item item, out Position attachPosition)
@@ -24,7 +25,13 @@ namespace ElysiumTest.Scripts.Presentation.Components
             attachPosition = default;
             return false;
         }
-        
+
+        public void Put(Item item)
+        {
+            if (!model.TryPut(item)) 
+                Debug.LogError($"Item with id {item.ID} has been already set");
+        }
+
 
         [Serializable]
         public class AttachPoint

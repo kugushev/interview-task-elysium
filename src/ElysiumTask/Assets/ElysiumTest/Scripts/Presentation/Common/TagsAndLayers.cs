@@ -19,9 +19,9 @@
 
         #region Rules
 
-        public static (string, string) DragableLayerAndTag => (DefaultLayer, InventoryItemTag);
+        public static (string, string) PressableLayerAndTag => (DefaultLayer, InventoryItemTag);
 
-        public static (string, string) DroppableLayerAndTag => (BackpackLayer, InventoryTag);
+        public static (string, string) ReleasableLayerAndTag => (BackpackLayer, InventoryTag);
 
         #endregion
     }

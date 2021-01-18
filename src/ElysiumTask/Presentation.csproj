@@ -68,7 +68,6 @@
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseReleaseEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InteractionsController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IBackpack.cs" />
-     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IDragable.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IInputInfo.cs" />
      <None Include="Assets\ElysiumTest\Scripts\Presentation\Presentation.asmdef" />
  <Reference Include="Unity.InputSystem">

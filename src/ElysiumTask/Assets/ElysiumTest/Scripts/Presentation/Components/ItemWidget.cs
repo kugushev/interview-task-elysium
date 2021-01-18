@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using ElysiumTest.Scripts.Game.Models;
 using ElysiumTest.Scripts.Presentation.Common;
-using ElysiumTest.Scripts.Presentation.Controllers;
 using ElysiumTest.Scripts.Presentation.Interfaces;
 using UnityEngine;
 
@@ -46,6 +45,8 @@ namespace ElysiumTest.Scripts.Presentation.Components
                 inputInfo.CursorMove -= JumpTo;
 
                 await MoveTo(token, attachPoint);
+
+                backpack.Put(item);
             }
             else
                 Debug.LogError($"Attach point for {item} with name {item.name} not found");

@@ -4,7 +4,6 @@ using ElysiumTest.Scripts.Presentation.Components;
 using ElysiumTest.Scripts.Presentation.Controllers.InputEvents;
 using ElysiumTest.Scripts.Presentation.Interfaces;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers
@@ -17,19 +16,6 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
         [SerializeField] private Camera currentCamera;
         [SerializeField] private float mouseZ = 1f;
         [SerializeField] private float raycastDistance = 16f;
-
-        public Vector3? MousePosition
-        {
-            get
-            {
-                var mouse = Mouse.current;
-                if (mouse == null)
-                    return null;
-
-                var position = mouse.position.ReadValue();
-                return GetMouseWorldPoint(position);
-            }
-        }
 
         public event Action<Vector3> CursorMove;
 
@@ -64,7 +50,7 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
         {
             var ray = currentCamera.ScreenPointToRay(mousePosition);
 
-            var (layer, currentTag) = TagsAndLayers.DragableLayerAndTag;
+            var (layer, currentTag) = TagsAndLayers.PressableLayerAndTag;
             
             if (Physics.Raycast(ray, out var hit, raycastDistance, LayerMask.GetMask(layer)) &&
                 hit.collider.CompareTag(currentTag))
@@ -81,7 +67,7 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
 
             var ray = currentCamera.ScreenPointToRay(mousePosition);
             
-            var (layer, currentTag) = TagsAndLayers.DroppableLayerAndTag;
+            var (layer, currentTag) = TagsAndLayers.ReleasableLayerAndTag;
             
             if (Physics.Raycast(ray, out var hit, raycastDistance, LayerMask.GetMask(layer)) &&
                 hit.collider.CompareTag(currentTag))
