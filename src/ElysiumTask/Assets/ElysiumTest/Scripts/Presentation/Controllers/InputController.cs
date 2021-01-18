@@ -2,24 +2,21 @@
 using ElysiumTest.Scripts.Presentation.Common;
 using ElysiumTest.Scripts.Presentation.Components;
 using ElysiumTest.Scripts.Presentation.Controllers.InputEvents;
+using ElysiumTest.Scripts.Presentation.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers
 {
-    public interface IInputController
-    {
-        Vector3? MousePosition { get; }
-    }
-
-    public class InputController : MonoBehaviour, IInputController
+    public class InputController : MonoBehaviour, IInputInfo
     {
         [SerializeField] private MousePressEvent onPressMouse;
-        [SerializeField] private UnityEvent onMouseRelease;
+        [SerializeField] private MouseReleaseEvent onMouseRelease;
         [SerializeField] private MouseMoveEvent onMouseMove;
         [SerializeField] private Camera currentCamera;
-        [SerializeField] private float screenFrontDistance = 1f;
+        [SerializeField] private float mouseZ = 1f;
+        [SerializeField] private float raycastDistance = 16f;
 
         public Vector3? MousePosition
         {
@@ -30,9 +27,11 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
                     return null;
 
                 var position = mouse.position.ReadValue();
-                return currentCamera.ScreenToWorldPoint(position);
+                return GetMouseWorldPoint(position);
             }
         }
+
+        public event Action<Vector3> CursorMove;
 
         // todo: use PlayerInput to get input indirectly
         private void Update()
@@ -41,42 +40,62 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
             if (mouse == null)
                 return;
             var mousePosition = mouse.position.ReadValue();
-            
+
             ExecuteMouseMove(mousePosition);
-            
+
             if (mouse.leftButton.wasPressedThisFrame)
             {
                 ExecuteMousePress(mousePosition);
             }
             else if (mouse.leftButton.wasReleasedThisFrame)
             {
-                onMouseRelease.Invoke();
+                ExecuteMouseRelease(mousePosition);
             }
         }
 
         private void ExecuteMouseMove(Vector2 mousePosition)
         {
-            var vec3 = (Vector3) mousePosition;
-            vec3.z = screenFrontDistance;
-            var worldPoint = currentCamera.ScreenToWorldPoint(vec3);
+            var worldPoint = GetMouseWorldPoint(mousePosition);
             onMouseMove.Invoke(worldPoint);
+            CursorMove?.Invoke(worldPoint);
         }
 
         private void ExecuteMousePress(Vector2 mousePosition)
         {
             var ray = currentCamera.ScreenPointToRay(mousePosition);
-            if (Physics.Raycast(ray, out var hit))
+
+            var (layer, currentTag) = TagsAndLayers.DragableLayerAndTag;
+            
+            if (Physics.Raycast(ray, out var hit, raycastDistance, LayerMask.GetMask(layer)) &&
+                hit.collider.CompareTag(currentTag))
             {
-                if (hit.collider.CompareTag(Tags.InventoryItem))
-                {
-                    // todo: use Interactable instead of object explicitly
-                    var widget = hit.collider.GetComponent<ItemWidget>();
-                    if (!ReferenceEquals(widget, null))
-                    {
-                        onPressMouse.Invoke(widget);
-                    }
-                }
+                var widget = hit.collider.GetComponent<ItemWidget>();
+                if (!ReferenceEquals(widget, null))
+                    onPressMouse.Invoke(widget);
             }
+        }
+
+        private void ExecuteMouseRelease(Vector2 mousePosition)
+        {
+            BackpackWidget backpack = null;
+
+            var ray = currentCamera.ScreenPointToRay(mousePosition);
+            
+            var (layer, currentTag) = TagsAndLayers.DroppableLayerAndTag;
+            
+            if (Physics.Raycast(ray, out var hit, raycastDistance, LayerMask.GetMask(layer)) &&
+                hit.collider.CompareTag(currentTag))
+                backpack = hit.collider.GetComponent<BackpackWidget>();
+
+            onMouseRelease.Invoke(backpack);
+        }
+
+        private Vector3 GetMouseWorldPoint(Vector2 mousePosition)
+        {
+            var vec3 = (Vector3) mousePosition;
+            vec3.z = mouseZ;
+            var worldPoint = currentCamera.ScreenToWorldPoint(vec3);
+            return worldPoint;
         }
     }
 }

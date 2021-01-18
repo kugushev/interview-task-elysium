@@ -58,12 +58,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Common\Tags.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Common\Position.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Common\TagsAndLayers.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\BackpackWidget.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\ItemWidget.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseMoveEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseReleaseEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InteractionsController.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IBackpack.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IDragable.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IInputInfo.cs" />
      <None Include="Assets\ElysiumTest\Scripts\Presentation\Presentation.asmdef" />
  <Reference Include="Unity.InputSystem">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>

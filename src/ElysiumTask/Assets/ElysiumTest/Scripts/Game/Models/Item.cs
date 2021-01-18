@@ -15,5 +15,7 @@ namespace ElysiumTest.Scripts.Game.Models
         public string ItemName => itemName;
         public ItemType ItemType => itemType;
         public float Weight => weight;
+        
+        
     }
 }

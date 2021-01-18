@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - InventoryItem
+  - Inventory
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Backpack
+  - BackpackItem
   - 
   - 
   - 

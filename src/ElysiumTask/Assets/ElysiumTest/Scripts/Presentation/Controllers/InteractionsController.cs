@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using ElysiumTest.Scripts.Presentation.Components;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -9,10 +10,8 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
     public class InteractionsController : MonoBehaviour
     {
         [SerializeField] private InputController inputController;
-        [SerializeField] private Transform nearCameraAnchor;
 
         private ItemWidget _selectedItem;
-        private CancellationTokenSource _cancellationTokenSource;
 
         public void OnItemClick(ItemWidget item)
         {
@@ -20,33 +19,51 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
                 return;
 
             _selectedItem = item;
-            _cancellationTokenSource = new CancellationTokenSource();
 
             StartCoroutine(UniTask.ToCoroutine(RunItemDrag));
         }
 
-        private UniTask RunItemDrag() => _selectedItem.Drag(inputController, _cancellationTokenSource.Token);
-
-        public void OnRelease()
+        private async UniTask RunItemDrag()
         {
-            if (!ReferenceEquals(_selectedItem, null)) 
-                StartCoroutine(UniTask.ToCoroutine(RunItemDrop));
-        }
-        
-        private async UniTask RunItemDrop()
-        {
-            await _selectedItem.Drop(inputController);
-            _selectedItem = null;
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
+            // todo: user custom poolable CancellationTokenSources to reduce GC pressure 
+            using (var cts = new CancellationTokenSource())
+            {
+                await _selectedItem.Drag(inputController, cts.Token);
+            }
         }
 
-        public void OnMove(Vector3 position)
+        public void OnRelease([CanBeNull] BackpackWidget backpackWidget)
         {
             if (_selectedItem == null)
                 return;
 
-            _selectedItem.MoveTo(position);
+            if (backpackWidget != null)
+            {
+                var task = RunItemDropToBackpack(backpackWidget);
+                StartCoroutine(task.ToCoroutine());
+            }
+            else
+                StartCoroutine(UniTask.ToCoroutine(RunItemDrop));
+        }
+
+        private async UniTask RunItemDropToBackpack(BackpackWidget backpackWidget)
+        {
+            // todo: user custom poolable CancellationTokenSources to reduce GC pressure
+            using (var cts = new CancellationTokenSource())
+            {
+                await _selectedItem.DropToBackpack(inputController, backpackWidget, cts.Token);
+                _selectedItem = null;
+            }
+        }
+
+        private async UniTask RunItemDrop()
+        {
+            // todo: user custom poolable CancellationTokenSources to reduce GC pressure
+            using (var cts = new CancellationTokenSource())
+            {
+                await _selectedItem.Drop(inputController, cts.Token);
+                _selectedItem = null;
+            }
         }
     }
 }
