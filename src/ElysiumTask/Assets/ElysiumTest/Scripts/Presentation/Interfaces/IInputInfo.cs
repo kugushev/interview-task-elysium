@@ -5,6 +5,6 @@ namespace ElysiumTest.Scripts.Presentation.Interfaces
 {
     public interface IInputInfo
     {
-        event Action<Vector3> CursorMove; 
+        event Action<Vector3> CursorMove;
     }
 }

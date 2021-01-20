@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers
 {
@@ -26,7 +25,7 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
 
         private readonly List<RaycastResult> _uiRaycastResults = new List<RaycastResult>();
         public event Action<Vector3> CursorMove;
-
+        
         // todo: use PlayerInput to get input indirectly
         private void Update()
         {

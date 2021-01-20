@@ -1,5 +1,4 @@
-﻿using System;
-using ElysiumTest.Scripts.Game.Models;
+﻿using ElysiumTest.Scripts.Game.Models;
 using TMPro;
 using UnityEngine;
 

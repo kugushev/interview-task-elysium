@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ElysiumTest.Scripts.Game.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace ElysiumTest.Scripts.Game.Models
 {

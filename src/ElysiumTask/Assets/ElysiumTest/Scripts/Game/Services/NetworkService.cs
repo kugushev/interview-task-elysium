@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using ElysiumTest.Scripts.Game.Enums;
@@ -16,7 +14,7 @@ namespace ElysiumTest.Scripts.Game.Services
     public class NetworkService : ScriptableObject, INetworkService
     {
         // todo: move it to config
-        [SerializeField] private int transactionId = 0;
+        [SerializeField] private int transactionId;
         [SerializeField] private string url = "https://dev3r02.elysium.today/inventory/status";
         [SerializeField] private string authHeader = "auth";
         [SerializeField] private string authToken; // todo: don't store token in source code
@@ -56,6 +54,8 @@ namespace ElysiumTest.Scripts.Game.Services
             var body = JsonUtility.ToJson(payload);
 
             await SendRequest(body, attempt);
+
+            PayloadReturnPool(payload);
         }
 
         private async Task SendRequest(string body, int attempt)

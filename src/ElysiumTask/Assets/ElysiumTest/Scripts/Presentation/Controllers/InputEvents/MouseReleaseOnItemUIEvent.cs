@@ -1,6 +1,5 @@
 ﻿using System;
 using ElysiumTest.Scripts.Presentation.Components;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers.InputEvents

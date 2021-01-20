@@ -1,7 +1,5 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using ElysiumTest.Scripts.Presentation.Components;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers
@@ -61,8 +59,6 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
         
         public void OnReleaseOnMenu(ItemUIWidget itemUIWidget)
         {
-            print("Test");
-            
             if (_selectedItem != null)
                 return;
 
@@ -73,7 +69,6 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
             }
             else
                 Debug.LogWarning($"Item {itemUIWidget.Item} no found in backpack");
-
         }
     }
 }

@@ -5,7 +5,6 @@ using ElysiumTest.Scripts.Presentation.Common;
 using ElysiumTest.Scripts.Presentation.Interfaces;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ElysiumTest.Scripts.Presentation.Components
 {
