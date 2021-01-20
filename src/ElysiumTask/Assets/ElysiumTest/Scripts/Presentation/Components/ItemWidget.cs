@@ -8,7 +8,7 @@ using UnityEngine;
 namespace ElysiumTest.Scripts.Presentation.Components
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ItemWidget : MonoBehaviour
+    public class ItemWidget : MonoBehaviour, IItem
     {
         [SerializeField] private Item item;
 

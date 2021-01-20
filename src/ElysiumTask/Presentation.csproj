@@ -72,6 +72,7 @@
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InteractionsController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IBackpack.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IInputInfo.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IItem.cs" />
      <None Include="Assets\ElysiumTest\Scripts\Presentation\Presentation.asmdef" />
  <Reference Include="Unity.InputSystem">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>

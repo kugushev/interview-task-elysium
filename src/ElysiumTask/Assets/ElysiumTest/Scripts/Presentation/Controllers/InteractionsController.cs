@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using ElysiumTest.Scripts.Presentation.Components;
+using ElysiumTest.Scripts.Presentation.Interfaces;
 using UnityEngine;
 
 namespace ElysiumTest.Scripts.Presentation.Controllers
@@ -9,9 +10,9 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
         [SerializeField] private InputController inputController;
         [SerializeField] private BackpackWidget backpack;
 
-        private ItemWidget _selectedItem;
+        private IItem _selectedItem;
 
-        public void OnItemClick(ItemWidget item)
+        public void OnItemClick(IItem item)
         {
             if (_selectedItem != null)
                 return;

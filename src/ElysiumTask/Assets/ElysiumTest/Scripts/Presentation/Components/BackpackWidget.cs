@@ -13,7 +13,7 @@ namespace ElysiumTest.Scripts.Presentation.Components
         [SerializeField] private Backpack model;
         [SerializeField] private InventorySlot[] inventory;
         [SerializeField] private Canvas ui;
-        [SerializeReference] private List<ItemWidget> widgetsStash = new List<ItemWidget>();
+        [SerializeReference] private List<IItem> inventoryStash = new List<IItem>();
 
         public bool TryGetAttachPosition(Item item, out Position attachPosition)
         {
@@ -28,7 +28,7 @@ namespace ElysiumTest.Scripts.Presentation.Components
             return false;
         }
 
-        public void Put(ItemWidget item)
+        public void Put(IItem item)
         {
             if (!model.TryPut(item.Item))
             {
@@ -42,10 +42,10 @@ namespace ElysiumTest.Scripts.Presentation.Components
             else
                 slot.UIEnabled = true;
             
-            widgetsStash.Add(item);
+            inventoryStash.Add(item);
         }
 
-        public bool TryTakeAway(Item item, out ItemWidget itemWidget)
+        public bool TryTakeAway(Item item, out IItem itemWidget)
         {
             if (TryFindWidget(item, out itemWidget) && model.TryTake(item.ID, out _))
             {
@@ -56,16 +56,16 @@ namespace ElysiumTest.Scripts.Presentation.Components
                 else
                     slot.UIEnabled = false;
 
-                widgetsStash.Remove(itemWidget);
+                inventoryStash.Remove(itemWidget);
                 return true;
             }
 
             return false;
         }
 
-        private bool TryFindWidget(Item item, out ItemWidget itemWidget)
+        private bool TryFindWidget(Item item, out IItem itemWidget)
         {
-            foreach (var inventoryWidget in widgetsStash)
+            foreach (var inventoryWidget in inventoryStash)
             {
                 if (inventoryWidget.Item == item)
                 {
