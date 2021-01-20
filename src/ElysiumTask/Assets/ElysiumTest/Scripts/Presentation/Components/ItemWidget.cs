@@ -13,6 +13,8 @@ namespace ElysiumTest.Scripts.Presentation.Components
     {
         [SerializeField] private Item item;
 
+        // todo: use ViewModel with RX to deal with increased amount of entities 
+        
         private Transform _transform;
         private Rigidbody _rigidbody;
 

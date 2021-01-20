@@ -59,10 +59,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ElysiumTest\Scripts\Game\Constants.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Game\Enums\ItemToBackpackEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Game\Enums\ItemType.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Game\Events\BackpackUpdatedEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Game\Interfaces\INetworkService.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Game\Models\Backpack.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Game\Models\Item.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Game\Services\Dto\ItemToBackpackInfo.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Game\Services\NetworkService.cs" />
      <None Include="Assets\ElysiumTest\Scripts\Game\Game.asmdef" />
+ <Reference Include="UniTask">
+ <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UniTask.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>

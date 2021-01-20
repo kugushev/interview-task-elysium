@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ElysiumTest.Scripts.Game.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,8 +8,8 @@ namespace ElysiumTest.Scripts.Game.Models
     [CreateAssetMenu(menuName = Constants.RootMenu + "/Backpack")]
     public sealed class Backpack : ScriptableObject
     {
-        [SerializeField] private UnityEvent onPut;
-        [SerializeField] private UnityEvent onTake;
+        [SerializeField] private BackpackUpdatedEvent onPut;
+        [SerializeField] private BackpackUpdatedEvent onTake;
 
         private readonly Dictionary<int, Item> _items = new Dictionary<int, Item>();
 
@@ -17,7 +18,7 @@ namespace ElysiumTest.Scripts.Game.Models
             if (_items.ContainsKey(item.ID))
                 return false;
 
-            onPut.Invoke();
+            onPut.Invoke(item);
             _items.Add(item.ID, item);
             return true;
         }
@@ -26,7 +27,7 @@ namespace ElysiumTest.Scripts.Game.Models
         {
             if (_items.TryGetValue(id, out item))
             {
-                onTake.Invoke();
+                onTake.Invoke(item);
                 return true;
             }
             return false;
