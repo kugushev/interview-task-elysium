@@ -64,7 +64,8 @@
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\ItemWidget.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseMoveEvent.cs" />
-     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressBackpackEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressItemEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseReleaseEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InteractionsController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IBackpack.cs" />

@@ -97,15 +97,6 @@ namespace ElysiumTest.Scripts.Game.Services
             return success;
         }
 
-        private static bool IsError(UnityWebRequest request)
-        {
-            
-            var hasErrors = request.isNetworkError || request.isHttpError;
-            if (hasErrors)
-                Debug.LogWarning($"Network error: {request.error}");
-            return hasErrors;
-        }
-
         private static void TroubleshootNetwork(int attempt)
         {
             // todo: basically we should suspend the application and wait response from the server

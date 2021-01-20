@@ -10,7 +10,8 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
 {
     public class InputController : MonoBehaviour, IInputInfo
     {
-        [SerializeField] private MousePressEvent onPressMouse;
+        [SerializeField] private MousePressItemEvent onPressItemMouse;
+        [SerializeField] private MousePressBackpackEvent onPressBackpackMouse;
         [SerializeField] private MouseReleaseEvent onMouseRelease;
         [SerializeField] private MouseMoveEvent onMouseMove;
         [SerializeField] private Camera currentCamera;
@@ -50,14 +51,21 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
         {
             var ray = currentCamera.ScreenPointToRay(mousePosition);
 
-            var (layer, currentTag) = TagsAndLayers.PressableLayerAndTag;
-            
-            if (Physics.Raycast(ray, out var hit, raycastDistance, LayerMask.GetMask(layer)) &&
-                hit.collider.CompareTag(currentTag))
+            if (Physics.Raycast(ray, out var hit, raycastDistance, TagsAndLayers.PressableLayers))
             {
-                var widget = hit.collider.GetComponent<ItemWidget>();
-                if (!ReferenceEquals(widget, null))
-                    onPressMouse.Invoke(widget);
+                if (hit.collider.CompareTag(TagsAndLayers.InventoryItemTag))
+                {
+                    var widget = hit.collider.GetComponent<ItemWidget>();
+                    if (!ReferenceEquals(widget, null))
+                        onPressItemMouse.Invoke(widget);
+                }
+                
+                if (hit.collider.CompareTag(TagsAndLayers.InventoryTag))
+                {
+                    var widget = hit.collider.GetComponent<BackpackWidget>();
+                    if (!ReferenceEquals(widget, null))
+                        onPressBackpackMouse.Invoke(widget);
+                }
             }
         }
 
@@ -66,12 +74,13 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
             BackpackWidget backpack = null;
 
             var ray = currentCamera.ScreenPointToRay(mousePosition);
-            
-            var (layer, currentTag) = TagsAndLayers.ReleasableLayerAndTag;
-            
-            if (Physics.Raycast(ray, out var hit, raycastDistance, LayerMask.GetMask(layer)) &&
-                hit.collider.CompareTag(currentTag))
-                backpack = hit.collider.GetComponent<BackpackWidget>();
+
+
+            if (Physics.Raycast(ray, out var hit, raycastDistance, TagsAndLayers.ReleasableLayers))
+            {
+                if (hit.collider.CompareTag(TagsAndLayers.InventoryTag))
+                    backpack = hit.collider.GetComponent<BackpackWidget>();
+            }
 
             onMouseRelease.Invoke(backpack);
         }

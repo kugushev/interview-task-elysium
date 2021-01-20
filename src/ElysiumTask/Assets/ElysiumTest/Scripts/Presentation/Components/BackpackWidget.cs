@@ -3,6 +3,7 @@ using ElysiumTest.Scripts.Game.Models;
 using ElysiumTest.Scripts.Presentation.Common;
 using ElysiumTest.Scripts.Presentation.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ElysiumTest.Scripts.Presentation.Components
 {
@@ -10,6 +11,7 @@ namespace ElysiumTest.Scripts.Presentation.Components
     {
         [SerializeField] private Backpack model;
         [SerializeField] private AttachPoint[] attachPoints;
+        [SerializeField] private Canvas ui;
         
         public bool TryGetAttachPosition(Item item, out Position attachPosition)
         {
@@ -32,6 +34,9 @@ namespace ElysiumTest.Scripts.Presentation.Components
                 Debug.LogError($"Item with id {item.ID} has been already set");
         }
 
+        public void ShowUI() => ui.gameObject.SetActive(true);
+
+        public void HideUI() => ui.gameObject.SetActive(false);
 
         [Serializable]
         public class AttachPoint

@@ -1,4 +1,6 @@
-﻿namespace ElysiumTest.Scripts.Presentation.Common
+﻿using UnityEngine;
+
+namespace ElysiumTest.Scripts.Presentation.Common
 {
     internal static class TagsAndLayers
     {
@@ -19,9 +21,9 @@
 
         #region Rules
 
-        public static (string, string) PressableLayerAndTag => (DefaultLayer, InventoryItemTag);
+        public static int PressableLayers { get; } = LayerMask.GetMask(DefaultLayer, BackpackLayer);
 
-        public static (string, string) ReleasableLayerAndTag => (BackpackLayer, InventoryTag);
+        public static int ReleasableLayers { get; } = LayerMask.GetMask(BackpackLayer);
 
         #endregion
     }

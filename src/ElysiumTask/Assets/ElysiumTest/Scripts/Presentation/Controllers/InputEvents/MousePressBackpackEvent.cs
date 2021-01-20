@@ -5,7 +5,7 @@ using UnityEngine.Events;
 namespace ElysiumTest.Scripts.Presentation.Controllers.InputEvents
 {
     [Serializable]
-    public class MousePressEvent: UnityEvent<ItemWidget>
+    public class MousePressBackpackEvent: UnityEvent<BackpackWidget>
     {
         
     }
