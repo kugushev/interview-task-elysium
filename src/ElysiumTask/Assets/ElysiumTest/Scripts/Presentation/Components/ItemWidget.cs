@@ -14,9 +14,11 @@ namespace ElysiumTest.Scripts.Presentation.Components
         [SerializeField] private Item item;
 
         // todo: use ViewModel with RX to deal with increased amount of entities 
-        
+
         private Transform _transform;
         private Rigidbody _rigidbody;
+
+        public Item Item => item;
 
         private void Awake()
         {
@@ -24,7 +26,7 @@ namespace ElysiumTest.Scripts.Presentation.Components
             _transform = transform;
         }
 
-        public UniTask Drag(IInputInfo inputInfo, CancellationToken token)
+        public UniTask Drag(IInputInfo inputInfo)
         {
             _rigidbody.isKinematic = true;
             gameObject.layer = LayerMask.NameToLayer(TagsAndLayers.BackpackItemLayer);
@@ -32,7 +34,7 @@ namespace ElysiumTest.Scripts.Presentation.Components
             return UniTask.CompletedTask;
         }
 
-        public UniTask Drop(IInputInfo inputInfo, CancellationToken token)
+        public UniTask Drop(IInputInfo inputInfo)
         {
             _rigidbody.isKinematic = false;
             gameObject.layer = LayerMask.NameToLayer(TagsAndLayers.DefaultLayer);
@@ -40,21 +42,21 @@ namespace ElysiumTest.Scripts.Presentation.Components
             return UniTask.CompletedTask;
         }
 
-        public async UniTask DropToBackpack(IInputInfo inputInfo, IBackpack backpack, CancellationToken token)
+        public async UniTask DropToBackpack(IInputInfo inputInfo, IBackpack backpack)
         {
-            if (backpack.TryGetAttachPosition(item, out var attachPoint))
+            if (backpack.TryGetAttachPosition(Item, out var attachPoint))
             {
                 inputInfo.CursorMove -= JumpTo;
 
-                await MoveTo(token, attachPoint);
+                await MoveTo(attachPoint);
 
-                backpack.Put(item);
+                backpack.Put(this);
             }
             else
-                Debug.LogError($"Attach point for {item} with name {item.name} not found");
+                Debug.LogError($"Attach point for {Item} with name {Item.name} not found");
         }
 
-        private async Task MoveTo(CancellationToken token, Position attachPoint)
+        private async Task MoveTo(Position attachPoint)
         {
             // todo: animate in FixedUpdate and set rigidbody position to support appropriate collisions
             var startPosition = _transform.position;
@@ -63,13 +65,10 @@ namespace ElysiumTest.Scripts.Presentation.Components
             const float animationTime = 1f;
             for (float i = 0f; i < 1f; i += Time.deltaTime / animationTime)
             {
-                if (token.IsCancellationRequested)
-                    break;
-
                 _transform.position = Vector3.Lerp(startPosition, attachPoint.Point, i);
                 _transform.rotation = Quaternion.Slerp(startRotation, attachPoint.Rotation, i);
 
-                await UniTask.NextFrame(cancellationToken: token);
+                await UniTask.NextFrame();
             }
         }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InventoryItem
   - Inventory
+  - InventoryItemUI
   layers:
   - Default
   - TransparentFX

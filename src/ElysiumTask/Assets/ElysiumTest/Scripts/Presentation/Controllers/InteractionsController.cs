@@ -9,6 +9,7 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
     public class InteractionsController : MonoBehaviour
     {
         [SerializeField] private InputController inputController;
+        [SerializeField] private BackpackWidget backpack;
 
         private ItemWidget _selectedItem;
 
@@ -24,45 +25,55 @@ namespace ElysiumTest.Scripts.Presentation.Controllers
 
         private async UniTask RunItemDrag()
         {
-            // todo: user custom poolable CancellationTokenSources to reduce GC pressure 
-            using (var cts = new CancellationTokenSource())
-            {
-                await _selectedItem.Drag(inputController, cts.Token);
-            }
+            await _selectedItem.Drag(inputController);
         }
 
-        public void OnRelease([CanBeNull] BackpackWidget backpackWidget)
+        public void OnRelease()
         {
             if (_selectedItem == null)
                 return;
 
-            if (backpackWidget != null)
-            {
-                var task = RunItemDropToBackpack(backpackWidget);
-                StartCoroutine(task.ToCoroutine());
-            }
-            else
-                StartCoroutine(UniTask.ToCoroutine(RunItemDrop));
+            StartCoroutine(UniTask.ToCoroutine(RunItemDrop));
+        }
+
+        public void OnReleaseToBackpack(BackpackWidget backpackWidget)
+        {
+            if (_selectedItem == null)
+                return;
+
+            var task = RunItemDropToBackpack(backpackWidget);
+            StartCoroutine(task.ToCoroutine());
         }
 
         private async UniTask RunItemDropToBackpack(BackpackWidget backpackWidget)
         {
-            // todo: user custom poolable CancellationTokenSources to reduce GC pressure
-            using (var cts = new CancellationTokenSource())
-            {
-                await _selectedItem.DropToBackpack(inputController, backpackWidget, cts.Token);
-                _selectedItem = null;
-            }
+            var item = _selectedItem;
+            _selectedItem = null;
+            await item.DropToBackpack(inputController, backpackWidget);
         }
 
         private async UniTask RunItemDrop()
         {
-            // todo: user custom poolable CancellationTokenSources to reduce GC pressure
-            using (var cts = new CancellationTokenSource())
+            var item = _selectedItem;
+            _selectedItem = null;
+            await item.Drop(inputController);
+        }
+        
+        public void OnReleaseOnMenu(ItemUIWidget itemUIWidget)
+        {
+            print("Test");
+            
+            if (_selectedItem != null)
+                return;
+
+            if (backpack.TryTakeAway(itemUIWidget.Item, out var itemWidget))
             {
-                await _selectedItem.Drop(inputController, cts.Token);
-                _selectedItem = null;
+                _selectedItem = itemWidget;
+                StartCoroutine(UniTask.ToCoroutine(RunItemDrag));
             }
+            else
+                Debug.LogWarning($"Item {itemUIWidget.Item} no found in backpack");
+
         }
     }
 }

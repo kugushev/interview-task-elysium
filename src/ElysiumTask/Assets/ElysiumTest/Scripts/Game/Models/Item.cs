@@ -16,10 +16,7 @@ namespace ElysiumTest.Scripts.Game.Models
         public ItemType ItemType => itemType;
         public float Weight => weight;
 
-        public bool InBackpack { get; set; }
-        // add Reactive binding
-        
-        // add view model with: mouse position and mouse attached state
-        
+
+        public override string ToString() => $"{id},{itemName},{itemType},{weight}";
     }
 }

@@ -27,6 +27,7 @@ namespace ElysiumTest.Scripts.Game.Models
         {
             if (_items.TryGetValue(id, out item))
             {
+                _items.Remove(id);
                 onTake.Invoke(item);
                 return true;
             }

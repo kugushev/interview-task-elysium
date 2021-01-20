@@ -8,6 +8,7 @@ namespace ElysiumTest.Scripts.Presentation.Common
 
         internal const string InventoryTag = "Inventory";
         internal const string InventoryItemTag = "InventoryItem";
+        internal const string InventoryItemUITag = "InventoryItemUI";
 
         #endregion
 

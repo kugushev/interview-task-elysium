@@ -61,12 +61,14 @@
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Common\Position.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Common\TagsAndLayers.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\BackpackWidget.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\ItemUIWidget.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Components\ItemWidget.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseMoveEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressBackpackEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MousePressItemEvent.cs" />
-     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseReleaseEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseReleaseOnBackpackEvent.cs" />
+     <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InputEvents\MouseReleaseOnItemUIEvent.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Controllers\InteractionsController.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IBackpack.cs" />
      <Compile Include="Assets\ElysiumTest\Scripts\Presentation\Interfaces\IInputInfo.cs" />
@@ -79,6 +81,9 @@
  </Reference>
  <Reference Include="UniRx">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UniRx.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Projects/_interview/interview-task-elysium/src/ElysiumTask/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
